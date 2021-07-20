@@ -11,7 +11,6 @@ using sort() because of concurrency.
 """
 import asyncio
 from typing import List
-
 wait_random = __import__('0-basic_async_syntax').wait_random
 
 
@@ -19,7 +18,10 @@ async def wait_n(n: int, max_delay: int) -> List[float]:
     """
     Spawn wait_random n times with the specified max_delay.
     """
-    coroutines = []
+    coroutines: List[asyncio.Future] = []
+    results: List[float] = []
     for _ in range(n):
         coroutines.append(wait_random(max_delay))
-    return await asyncio.gather(*coroutines)
+    for coroutine in asyncio.as_completed(coroutines):
+        results.append(await coroutine)
+    return results
