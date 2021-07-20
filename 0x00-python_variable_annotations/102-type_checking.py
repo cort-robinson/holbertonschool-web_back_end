@@ -21,6 +21,7 @@ from typing import List, Tuple
 
 
 def zoom_array(lst: Tuple, factor: int = 2) -> List:
+    """corrected version of zoom_array"""
     zoomed_in: List = [
         item for item in lst
         for i in range(factor)
