@@ -16,7 +16,7 @@ and is a caching system:
         * If key is None or if the key doesn’t exist in self.cache_data,
           return None.
 """
-BaseCaching = __import__('base_caching').BaseCaching
+from base_caching import BaseCaching
 
 
 class BasicCache(BaseCaching):
