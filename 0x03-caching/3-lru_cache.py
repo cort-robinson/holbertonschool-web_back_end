@@ -24,7 +24,7 @@ from base_caching import BaseCaching
 
 
 class LRUCache(BaseCaching):
-    """LRU Cache"""
+    """LRU Cache class"""
 
     def __init__(self):
         """Initialize LRU Cache"""
