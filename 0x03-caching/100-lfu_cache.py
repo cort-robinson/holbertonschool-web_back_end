@@ -25,7 +25,7 @@ from base_caching import BaseCaching
 
 
 class LFUCache(BaseCaching):
-    """LFU Cache"""
+    """LFU Cache Class"""
 
     def __init__(self):
         """Initialize LFU Cache"""
