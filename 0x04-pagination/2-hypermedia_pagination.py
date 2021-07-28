@@ -62,7 +62,7 @@ class Server:
         assert page > 0 and page_size > 0
         page_index = index_range(page, page_size)
         return {
-            "page_size": page_size,
+            "page_size": len(self.dataset()[page_index[0]:page_index[1]]),
             "page": page,
             "data": self.dataset()[page_index[0]:page_index[1]],
             "next_page": None if page == math.ceil(
