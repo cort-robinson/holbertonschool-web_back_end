@@ -61,12 +61,12 @@ class Server:
         assert type(page) is int and type(page_size) is int
         assert page > 0 and page_size > 0
         page_index = index_range(page, page_size)
+        total_pages = math.ceil(len(self.dataset()) / page_size)
         return {
             "page_size": len(self.dataset()[page_index[0]:page_index[1]]),
             "page": page,
             "data": self.dataset()[page_index[0]:page_index[1]],
-            "next_page": None if page == math.ceil(
-                len(self.dataset())/page_size) else page + 1,
+            "next_page": None if page == total_pages else page + 1,
             "prev_page": None if page == 1 else page - 1,
-            "total_pages": math.ceil(len(self.dataset())/page_size)
+            "total_pages": total_pages
         }
