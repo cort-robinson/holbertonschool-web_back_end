@@ -58,14 +58,11 @@ class Server:
             * prev_page: number of the previous page, None if no previous page
             * total_pages: the total number of pages in the dataset as an int
         """
-        assert type(page) is int and type(page_size) is int
-        assert page > 0 and page_size > 0
-        page_index = index_range(page, page_size)
         total_pages = math.ceil(len(self.dataset()) / page_size)
         return {
-            "page_size": len(self.dataset()[page_index[0]:page_index[1]]),
+            "page_size": len(self.get_page(page, page_size)),
             "page": page,
-            "data": self.dataset()[page_index[0]:page_index[1]],
+            "data": self.get_page(page, page_size),
             "next_page": None if page == total_pages else page + 1,
             "prev_page": None if page == 1 else page - 1,
             "total_pages": total_pages
