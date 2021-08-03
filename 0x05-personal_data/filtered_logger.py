@@ -18,6 +18,7 @@ from typing import List
 import logging
 import os
 import mysql.connector
+from datetime import datetime
 
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
@@ -113,7 +114,8 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
         user=username,
         password=password,
         host=host,
-        database=db_name)
+        database=db_name,
+        auth_plugin='mysql_native_password')
 
 
 def main():
@@ -138,16 +140,19 @@ def main():
 
     Only your main function should run when the module is executed.
     """
-    logger = get_logger()
     db = get_db()
-    cursor = db.cursor()
-    cursor.execute("SELECT * FROM users")
-    for row in cursor.fetchall():
-        logger.info(filter_datum(PII_FIELDS, "***",
-                                 "name={}; email={}; phone={}; ssn={}; "
-                                 "password={}; ip={}; last_login={}; "
-                                 "user_agent={}".format(row[1], row[2], row[3],
-                                                        row[4], row[5],
-                                                        row[6], row[7],
-                                                        row[8]),
-                                 RedactingFormatter.SEPARATOR))
+    formatter = RedactingFormatter(PII_FIELDS)
+    cursor = db.cursor(dictionary=True)
+    cursor.execute(
+        "SELECT * FROM users;")
+    for row in cursor:
+        log = ''
+        for k, v in row.items():
+            if not isinstance(v, datetime):
+                log += k + '=' + v + '; '
+        print(formatter.format(logging.LogRecord(
+            'user_data', logging.INFO, None, None, log, None, None)))
+
+
+if __name__ == "__main__":
+    main()
