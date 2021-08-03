@@ -16,6 +16,8 @@ Write a function called filter_datum that returns the log message obfuscated:
 import re
 from typing import List
 import logging
+import os
+import mysql.connector
 
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
@@ -83,3 +85,32 @@ def get_logger() -> logging.Logger:
     handler.setFormatter(RedactingFormatter)
     logger.addHandler(handler)
     return logger
+
+
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    """
+    In this task, you will connect to a secure holberton database to read a
+    users table. The database is protected by a username and password that are
+    set as environment variables on the server named PERSONAL_DATA_DB_USERNAME
+    (set the default as “root”), PERSONAL_DATA_DB_PASSWORD (set the default as
+    an empty string) and PERSONAL_DATA_DB_HOST (set the default as “localhost”)
+
+    The database name is stored in PERSONAL_DATA_DB_NAME.
+
+    Implement a get_db function that returns a connector to the database
+    (mysql.connector.connection.MySQLConnection object).
+
+        * Use the os module to obtain credentials from the
+          environment
+        * Use the module mysql-connector-python to connect to the MySQL
+          database (pip3 install mysql-connector-python)
+    """
+    username = os.environ.get('PERSONAL_DATA_DB_USERNAME')
+    password = os.environ.get('PERSONAL_DATA_DB_PASSWORD')
+    host = os.environ.get('PERSONAL_DATA_DB_HOST')
+    db_name = os.environ.get('PERSONAL_DATA_DB_NAME')
+    return mysql.connector.connect(
+        user=username,
+        password=password,
+        host=host,
+        database=db_name)
