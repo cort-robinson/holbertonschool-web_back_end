@@ -8,10 +8,12 @@ from typing import List, TypeVar
 class Auth:
     """ Auth class
     """
+
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """ decorator to require authentication
         """
-        if path is None or not excluded_paths or path not in excluded_paths:
+        if path is None or not excluded_paths or path.strip('/') not in [
+                path.strip('/') for path in excluded_paths]:
             return True
         else:
             return False
