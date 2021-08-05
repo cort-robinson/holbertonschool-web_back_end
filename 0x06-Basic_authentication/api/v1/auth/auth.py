@@ -15,13 +15,14 @@ class Auth:
         if path is None or not excluded_paths or path.strip('/') not in [
                 path.strip('/') for path in excluded_paths]:
             return True
-        else:
-            return False
+        return False
 
     def authorization_header(self, request=None) -> str:
         """ returns the authorization header
         """
-        return None
+        if request is None or 'Authorization' not in request.headers:
+            return None
+        return request.headers['Authorization']
 
     def current_user(self, request=None) -> TypeVar('User'):
         """ returns the current user
