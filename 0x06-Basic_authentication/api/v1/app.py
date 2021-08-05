@@ -23,11 +23,11 @@ if getenv('AUTH_TYPE') == 'auth':
 def before_request_func():
     """ This function is run before every request
     """
-    if auth is None:
+    if auth:
         return
-    if auth.require_auth(request.path, ['/api/v1/status/',
-                                        '/api/v1/unauthorized/',
-                                        '/api/v1/forbidden/']):
+    if not auth.require_auth(request.path, ['/api/v1/status/',
+                                            '/api/v1/unauthorized/',
+                                            '/api/v1/forbidden/']):
         return
     if auth.authorization_header(request) is None:
         abort(401)
