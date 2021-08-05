@@ -22,8 +22,8 @@ class Auth:
                 if re.search('^' + word[:-1], stripped_path) is None:
                     return True
             elif word == stripped_path:
-                return True
-        return False
+                return False
+        return True
 
     def authorization_header(self, request=None) -> str:
         """ returns the authorization header
