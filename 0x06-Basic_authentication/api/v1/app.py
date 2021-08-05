@@ -25,9 +25,7 @@ def before_request_func():
     """
     if auth is None:
         return
-    if request.path not in ['/api/v1/status/',
-                            '/api/v1/unauthorized/',
-                            '/api/v1/forbidden/']:
+    if not auth.require_auth(request):
         return
     if auth.authorization_header(request) is None:
         abort(401)
