@@ -25,7 +25,7 @@ def before_request_func():
     """
     if auth is None:
         return
-    if not auth.require_auth(request):
+    if auth.require_auth(request):
         return
     if auth.authorization_header(request) is None:
         abort(401)
