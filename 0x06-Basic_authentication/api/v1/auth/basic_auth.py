@@ -2,7 +2,6 @@
 """Basic authentication module for API"""
 from api.v1.auth.auth import Auth
 import base64
-from typing import Tuple
 
 
 class BasicAuth(Auth):
@@ -35,7 +34,7 @@ class BasicAuth(Auth):
         return base64.b64decode(base64_authorization_header).decode('utf-8')
 
     def extract_user_credentials(
-            self, decoded_base64_authorization_header: str) -> Tuple(str, str):
+            self, decoded_base64_authorization_header: str) -> tuple(str, str):
         """ Extracts the user credentials from the decoded base64
             authorization header
         """
