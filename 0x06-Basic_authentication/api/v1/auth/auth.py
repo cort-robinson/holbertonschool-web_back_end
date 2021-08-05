@@ -19,7 +19,7 @@ class Auth:
         stripped_path = path.strip('/')
         for word in [path.strip('/') for path in excluded_paths]:
             if word.endswith('*'):
-                if not re.search('^' + word[:-1], stripped_path):
+                if re.search('^' + word[:-1], stripped_path) is None:
                     return True
             elif word == stripped_path:
                 return True
