@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """ authorization module for the API
 """
-from flask import request
+import re
 from typing import List, TypeVar
+
+from flask import request
 
 
 class Auth:
@@ -12,9 +14,14 @@ class Auth:
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """ decorator to require authentication
         """
-        if path is None or not excluded_paths or path.strip('/') not in [
-                path.strip('/') for path in excluded_paths]:
+        if path is None or not excluded_paths:
             return True
+        for word in [path.strip('/') for path in excluded_paths]:
+            if word.endswith('*'):
+                if not re.search('^' + word[:-1], path):
+                    return True
+            elif word == path:
+                return True
         return False
 
     def authorization_header(self, request=None) -> str:
