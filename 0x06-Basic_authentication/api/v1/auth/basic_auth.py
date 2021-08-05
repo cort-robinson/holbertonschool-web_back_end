@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Basic authentication module for API"""
-from os import error
 from api.v1.auth.auth import Auth
+import base64
 
 
 class BasicAuth(Auth):
@@ -28,7 +28,7 @@ class BasicAuth(Auth):
         if not isinstance(base64_authorization_header, str):
             return None
         try:
-            base64_authorization_header.decode('base64')
+            base64.decodestring(base64_authorization_header)
         except Exception:
             return None
         return base64_authorization_header.decode('utf-8')
