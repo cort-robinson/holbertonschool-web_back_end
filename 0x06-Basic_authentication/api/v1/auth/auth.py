@@ -16,11 +16,12 @@ class Auth:
         """
         if path is None or not excluded_paths:
             return True
+        stripped_path = path.strip('/')
         for word in [path.strip('/') for path in excluded_paths]:
             if word.endswith('*'):
-                if not re.search('^' + word[:-1], path):
+                if not re.search('^' + word[:-1], stripped_path):
                     return True
-            elif word == path:
+            elif word == stripped_path:
                 return True
         return False
 
