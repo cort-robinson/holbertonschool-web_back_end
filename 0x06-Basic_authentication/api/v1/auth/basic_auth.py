@@ -61,10 +61,7 @@ class BasicAuth(Auth):
             return None
         if not DATA.get('User'):
             return None
-        if not User.search({'email': user_email}):
-            return None
-        else:  # User exists
-            for user in User.search({'email': user_email}):
-                if user.is_password_valid(user_pwd):
-                    return user
+        for user in User.search({'email': user_email}):
+            if user.is_password_valid(user_pwd):
+                return user
         return None
