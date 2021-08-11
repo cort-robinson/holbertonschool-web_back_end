@@ -3,7 +3,6 @@
 """
 from os import getenv
 
-from api.v1.app import auth
 from api.v1.views import app_views
 from flask import jsonify, request, abort
 from flask.helpers import make_response
@@ -14,6 +13,8 @@ from models.user import User
 def auth_session_login():
     """ Login Session
     """
+    from api.v1.app import auth
+
     email = request.form.get('email')
     password = request.form.get('password')
     if not email:
@@ -41,6 +42,8 @@ def auth_session_login():
 def auth_session_logout():
     """ Logout Session
     """
+    from api.v1.app import auth
+
     if not auth.destroy_session(request):
         abort(404)
     return jsonify({}), 200
