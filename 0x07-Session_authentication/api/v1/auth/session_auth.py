@@ -17,7 +17,7 @@ class SessionAuth(Auth):
         """
         if user_id is None or not isinstance(user_id, str):
             return None
-        session_id = uuid4()
+        session_id = str(uuid4())
         self.user_id_by_session_id[session_id] = user_id
         return session_id
 
@@ -26,4 +26,4 @@ class SessionAuth(Auth):
         """
         if session_id is None or not isinstance(session_id, str):
             return None
-        return SessionAuth.user_id_by_session_id.get(session_id)
+        return self.user_id_by_session_id.get(session_id)
