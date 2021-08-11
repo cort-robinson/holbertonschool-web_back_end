@@ -16,9 +16,9 @@ def auth_session_login():
     """
     email = request.form.get('email')
     password = request.form.get('password')
-    if not email:
+    if not email or email == '':
         return jsonify({'error': 'email missing'}), 400
-    if not password:
+    if not password or password == '':
         return jsonify({'error': 'password missing'}), 400
     user = User.search(email=email)
     if not user:
