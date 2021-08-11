@@ -30,6 +30,7 @@ class SessionExpAuth(SessionAuth):
                 "created_at": datetime.now()
             }
             return session_id
+        return None
 
     def user_id_for_session_id(self, session_id=None):
         """ Return User ID for Session ID
