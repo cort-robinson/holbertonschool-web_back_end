@@ -5,7 +5,7 @@ from os import getenv
 
 from api.v1.app import auth
 from api.v1.views import app_views
-from flask import abort, jsonify, request, session
+from flask import jsonify, request
 from flask.helpers import make_response
 from models.user import User
 
