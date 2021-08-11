@@ -17,10 +17,10 @@ auth = None
 if getenv('AUTH_TYPE') == 'auth':
     from api.v1.auth.auth import Auth
     auth = Auth()
-if getenv('AUTH_TYPE') == 'basic_auth':
+elif getenv('AUTH_TYPE') == 'basic_auth':
     from api.v1.auth.basic_auth import BasicAuth
     auth = BasicAuth()
-if getenv('AUTH_TYPE') == 'session_auth':
+elif getenv('AUTH_TYPE') == 'session_auth':
     from api.v1.auth.session_auth import SessionAuth
     auth = SessionAuth()
 
@@ -37,9 +37,10 @@ def before_request_func():
         if auth.authorization_header(request) is None and \
                 auth.session_cookie(request) is None:
             abort(401)
-        if auth.current_user(request) is None:
+        current_user = auth.current_user(request)
+        if current_user is None:
             abort(403)
-    request.current_user = auth.current_user(request)
+    request.current_user = current_user
 
 
 @app.errorhandler(404)
