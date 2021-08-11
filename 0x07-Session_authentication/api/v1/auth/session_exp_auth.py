@@ -3,6 +3,7 @@
 Session expiration authentication module
 """
 import datetime
+from os import getenv
 
 from api.v1.auth.session_auth import SessionAuth
 
@@ -15,7 +16,7 @@ class SessionExpAuth(SessionAuth):
         """
         super().__init__()
         try:
-            self.session_duration = int(self.env_session_duration)
+            self.session_duration = int(getenv('SESSION_DURATION'))
         except Exception:
             self.session_duration = 0
 
