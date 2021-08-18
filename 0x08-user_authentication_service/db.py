@@ -56,6 +56,6 @@ class DB:
         user = self.find_user_by(id=user_id)
         for key, value in kwargs.items():
             if key not in user.__dict__:
-                raise ValueError(f"{key} is not a valid attribute")
+                raise ValueError
             setattr(user, key, value)
         self._session.commit()
