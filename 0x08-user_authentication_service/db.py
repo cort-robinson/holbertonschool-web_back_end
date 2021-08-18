@@ -6,7 +6,7 @@ from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.exc import NoResultFound
-from sqlalchemy.orm.session import Session
+from sqlalchemy.orm import Session
 
 from user import Base, User
 
@@ -51,7 +51,7 @@ class DB:
             raise InvalidRequestError
 
     def update_user(self, user_id: int, **kwargs) -> None:
-        """Update a user's attributes and commit changes to DB
+        """Update a user's attributes and commits changes to DB
         """
         user = self.find_user_by(id=user_id)
         for key, value in kwargs.items():
