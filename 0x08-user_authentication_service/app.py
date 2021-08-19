@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """Module for basic flask application
 """
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 
 from auth import Auth
 
 app = Flask(__name__)
+AUTH = Auth()
 
 
 @app.route('/')
@@ -16,11 +17,13 @@ def index():
 
 
 @app.route('/users', methods=['POST'])
-def create_user(email: str, password: str):
+def users():
     """Create user route
     """
+    email = request.form.get('email')
+    password = request.form.get('password')
     try:
-        Auth.register_user(email, password)
+        AUTH.register_user(email, password)
         return jsonify({"email": email, "message": "user created"}), 200
     except ValueError:
         return jsonify({"message": "email already registered"}), 400
