@@ -2,6 +2,7 @@
 """Module for basic flask application
 """
 from flask import Flask, abort, jsonify, request
+from flask.helpers import make_response
 
 from auth import Auth
 
@@ -35,11 +36,13 @@ def login():
     """
     email = request.form.get('email')
     password = request.form.get('password')
-    try:
-        AUTH.valid_login(email, password)
-        return jsonify({"email": email, "message": "logged in"}), 200
-    except ValueError:
-        abort(401)
+    if AUTH.valid_login(email, password):
+        AUTH.create_session(email)
+        response = make_response(jsonify({"email": email,
+                                          "message": "logged in"}), 200)
+        response.set_cookie('session_id', AUTH.get_session_id(email))
+        return response
+    abort(401)
 
 
 if __name__ == '__main__':
