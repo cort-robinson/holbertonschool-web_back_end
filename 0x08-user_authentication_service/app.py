@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Module for basic flask application
 """
-from flask import Flask, abort, jsonify, request
+from flask import Flask, abort, jsonify, request, redirect
 from flask.helpers import make_response
 
 from auth import Auth
@@ -50,12 +50,12 @@ def logout():
     """Logout route
     """
     session_id = request.cookies.get('session_id')
-    if AUTH.valid_session(session_id):
-        AUTH.end_session(session_id)
-        response = make_response(jsonify({"message": "logged out"}), 200)
-        response.set_cookie('session_id', '', expires=0)
-        return response
-    abort(403)
+    try:
+        user = AUTH.get_user_from_session_id(session_id)
+        AUTH.destroy_session(user.id)
+        return redirect('/')
+    except Exception:
+        abort(403)
 
 
 if __name__ == '__main__':
