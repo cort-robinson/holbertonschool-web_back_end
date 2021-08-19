@@ -62,6 +62,8 @@ class Auth:
             return None
 
     def get_user_from_session_id(self, session_id: str) -> Optional[User]:
+        """Get a user from a session id
+        """
         if session_id:
             try:
                 return self._db.find_user_by(session_id=session_id)
@@ -69,6 +71,8 @@ class Auth:
                 return None
 
     def destroy_session(self, user_id: int) -> None:
+        """Destroy a session from a user id
+        """
         self._db.update_user(user_id, session_id=None)
 
     def get_reset_password_token(self, email: str) -> str:
