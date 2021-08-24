@@ -4,9 +4,10 @@
 import unittest
 from unittest.mock import PropertyMock, patch
 
-from parameterized import parameterized
+from parameterized import parameterized, parameterized_class
 
 from client import GithubOrgClient
+from fixtures import TEST_PAYLOAD
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -54,3 +55,40 @@ class TestGithubOrgClient(unittest.TestCase):
         """
         client = GithubOrgClient('google')
         self.assertEqual(client.has_license(repo, license_key), expected)
+
+
+@parameterized_class([{
+    'org_payload': TEST_PAYLOAD[0][0],
+    'repos_payload': TEST_PAYLOAD[0][1],
+    'expected_repos': TEST_PAYLOAD[0][2],
+    'apache2_repos': TEST_PAYLOAD[0][3]
+}])
+class TestIntegrationGithubOrgClient(unittest.TestCase):
+    """Test integration of GithubOrgClient class
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        """Setup class method
+        """
+        cls.get_patcher = patch('requests.get')
+        cls.get = cls.get_patcher.start()
+        cls.get.side_effect = cls.side_effect
+
+    @classmethod
+    def side_effect(cls, *args):
+        """Checks if the url is correct and returns the payload
+        """
+
+        if args[0] == 'https://api.github.com/orgs/google':
+            return cls.org_payload
+        elif args[0] == 'https://api.github.com/orgs/google/repos':
+            return cls.repos_payload
+        else:
+            raise ValueError('Wrong url')
+
+    @classmethod
+    def tearDownClass(cls):
+        """Teardown class method
+        """
+        cls.get_patcher.stop()
