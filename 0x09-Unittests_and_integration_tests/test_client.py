@@ -87,6 +87,16 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         else:
             raise ValueError('Wrong url')
 
+    def test_public_repos(self):
+        """Test public_repos
+        """
+        pass
+
+    def test_public_repos_with_license(self):
+        """Test public_repos with a license
+        """
+        pass
+
     @classmethod
     def tearDownClass(cls):
         """Teardown class method
