@@ -92,7 +92,7 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         """
         pass
 
-    def test_public_repos_with_license(self):
+    def test_public_repos_with_license(self, license="apache-2.0"):
         """Test public_repos with a license
         """
         pass
