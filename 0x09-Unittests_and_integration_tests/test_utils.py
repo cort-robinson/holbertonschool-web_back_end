@@ -52,13 +52,7 @@ class TestGetJson(unittest.TestCase):
 class TestMemoize(unittest.TestCase):
     """Test memoize
     """
-    @parameterized.expand([
-        (1, 1),
-        (2, 2),
-        (3, 3),
-    ])
-    @patch("utils.memoize")
-    def test_memoize(self, test_input, expected, mock_memoize):
+    def test_memoize(self):
         """Test memoize
         """
         class TestClass:
