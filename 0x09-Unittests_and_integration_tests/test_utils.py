@@ -2,7 +2,7 @@
 """Unittests for utils.py
 """
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, MockResponse
 
 from parameterized import parameterized
 
@@ -37,12 +37,14 @@ class TestGetJson(unittest.TestCase):
     """Test get_json
     """
     @parameterized.expand([
-        ["http://example.com", {"payload": True}]
+        ["http://example.com", {"payload": True}],
         ["http://holberton.io", {"payload": False}]
     ])
-    def test_get_json(self, test_url, test_payload):
+    @patch("requests.get")
+    def test_get_json(self, test_url, test_payload, mock_requests):
         """Test get_json
         """
-        with patch("utils.requests.get") as mock_get:
-            mock_get.return_value.json.return_value = test_payload
-            self.assertEqual(get_json(test_url), test_payload)
+        mock_requests.return_value = MockResponse(json_data=test_payload)
+
+        self.assertEqual(get_json(test_url), test_payload)
+        mock_requests.assert_called_once_with(test_url)
