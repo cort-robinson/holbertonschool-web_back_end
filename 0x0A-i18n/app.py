@@ -80,7 +80,7 @@ def before_request():
 @app.route('/')
 def index() -> str:
     """Index route"""
-    return render_template('6-index.html',
+    return render_template('index.html',
                            current_time=format_datetime(datetime.now()))
 
 
