@@ -12,10 +12,12 @@ r = redis.Redis()
 def count_access(func: Callable) -> Callable:
     """Counts the number of times a function is called with redis"""
     @wraps(func)
-    def wrapper(*args, **kwargs):
+    def wrapper(*args):
         """Wrapper function"""
-        r.incr('access')
-        return func(*args, **kwargs)
+        key = 'count:' + args[0]
+        r.incr('key', 1)
+        r.setex('result', 10, r.get(key))
+        return func(*args)
     return wrapper
 
 
