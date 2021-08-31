@@ -15,7 +15,7 @@ def count_access(func: Callable) -> Callable:
     def wrapper(*args):
         """Wrapper function"""
         key = 'count:' + args[0]
-        r.incr('key', 1)
+        r.incr(key, 1)
         r.setex('result', 10, r.get(key))
         return func(*args)
     return wrapper
