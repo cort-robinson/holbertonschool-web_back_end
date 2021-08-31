@@ -40,7 +40,7 @@ def replay(method: Callable) -> None:
 
     print('{} was called {} times:'.format(method.__qualname__,
                                            method_redis.get(
-                                               method.__qualname__).decode))
+                                               method.__qualname__)))
     for input, output in zip(inputs, outputs):
         print('{}(*{}) -> {}'.format(method.__qualname__,
                                      input.decode(), output.decode()))
