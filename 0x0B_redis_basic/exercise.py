@@ -37,8 +37,13 @@ def replay(method: Callable) -> None:
     method_redis = method.__self__._redis
     inputs = method_redis.lrange(method.__qualname__ + ':inputs', 0, -1)
     outputs = method_redis.lrange(method.__qualname__ + ':outputs', 0, -1)
+
+    print('{} was called {} times:'.format(method.__qualname__,
+                                           method_redis.get(
+                                               method.__qualname__)))
     for input, output in zip(inputs, outputs):
-        print(f'input: {input}, output: {output}')
+        print('{}(*(\'{}\',)) -> {}'.format(method.__qualname__,
+                                            input, output))
 
 
 class Cache:
