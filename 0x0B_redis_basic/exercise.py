@@ -42,8 +42,8 @@ def replay(method: Callable) -> None:
                                            method_redis.get(
                                                method.__qualname__).decode))
     for input, output in zip(inputs, outputs):
-        print('{}(*{},) -> {}'.format(method.__qualname__,
-                                      input.decode(), output.decode()))
+        print('{}(*{}) -> {}'.format(method.__qualname__,
+                                     input.decode(), output.decode()))
 
 
 class Cache:
