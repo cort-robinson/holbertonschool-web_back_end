@@ -34,14 +34,11 @@ def call_history(method: Callable) -> Callable:
 
 def replay(method: Callable) -> None:
     """Displays the history of calls of a function"""
-
-    @wraps(method)
-    def wrapper(self, *args):
-        inputs = self._redis.lrange(method.__qualname__ + ':inputs', 0, -1)
-        outputs = self._redis.lrange(method.__qualname__ + ':outputs', 0, -1)
-        for input, output in zip(inputs, outputs):
-            print(f'input: {input}, output: {output}')
-        return method(self, *args)
+    method_redis = method.__self__._redis
+    inputs = method_redis.lrange(method.__qualname__ + ':inputs', 0, -1)
+    outputs = method_redis.lrange(method.__qualname__ + ':outputs', 0, -1)
+    for input, output in zip(inputs, outputs):
+        print(f'input: {input}, output: {output}')
 
 
 class Cache:
