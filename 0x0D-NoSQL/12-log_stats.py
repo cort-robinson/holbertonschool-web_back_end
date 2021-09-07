@@ -11,4 +11,4 @@ if __name__ == "__main__":
     print(f'\tmethod PUT: {data.count_documents({"method": "PUT"})}')
     print(f'\tmethod PATCH: {data.count_documents({"method": "PATCH"})}')
     print(f'\tmethod DELETE: {data.count_documents({"method": "DELETE"})}')
-    print(f'{data.count_documents({"path": "/status"})}')
+    print(f'{data.count_documents({"path": "/status"})} status check')
