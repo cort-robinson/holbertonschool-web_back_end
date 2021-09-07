@@ -3,8 +3,7 @@
 from pymongo import MongoClient
 
 if __name__ == "__main__":
-    data = MongoClient().client.logs.nginx
-
+    data = MongoClient().logs.nginx
     print(f'{data.count_documents({})} logs\nMethods:')
     print(f'\tmethod GET: {data.count_documents({"method": "GET"})}')
     print(f'\tmethod POST: {data.count_documents({"method": "POST"})}')
