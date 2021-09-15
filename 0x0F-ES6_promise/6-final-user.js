@@ -15,11 +15,11 @@ import uploadPhoto from './5-photo-reject';
  * @param {string} firstName first name of the user
  * @param {string} lastName last name of the user
  * @param {string} fileName file name of the photo
- * @returns
+ * @returns {Promise<Array<{status: string, value: any}>>}
  */
 export default function handleProfileSignup(firstName, lastName, fileName) {
   return Promise.all([
     signUpUser(firstName, lastName),
     uploadPhoto(fileName),
-  ]);
+  ]).catch((error) => error);
 }
