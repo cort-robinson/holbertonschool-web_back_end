@@ -2,9 +2,9 @@ import signUpUser from './4-user-promise';
 import uploadPhoto from './5-photo-reject';
 
 /**
- * Calls the signUpUser function and uploadPhoto
- * function then returns an array with the
- * following structure:
+ * The function should call the two other functions.
+ * When the promises are all settled it should return
+ * an array with the following structure:
  * [
  *  {
  *    status: status of the promise,
@@ -18,8 +18,8 @@ import uploadPhoto from './5-photo-reject';
  * @returns {Promise<Array<{status: string, value: any}>>}
  */
 export default function handleProfileSignup(firstName, lastName, fileName) {
-  return Promise.all([
+  return Promise.allSettled([
     signUpUser(firstName, lastName),
     uploadPhoto(fileName),
-  ]).catch((error) => error);
+  ]);
 }
