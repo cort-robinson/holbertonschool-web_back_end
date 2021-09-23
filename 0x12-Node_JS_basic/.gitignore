@@ -1,3 +1,4 @@
 node_modules
 *-main.js
+*-main_*.js
 database.csv
