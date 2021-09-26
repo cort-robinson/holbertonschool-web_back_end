@@ -11,4 +11,4 @@ app.listen(1245, () => {
   console.log('Hello Holberton School!');
 });
 
-export default app;
+module.exports = app;
