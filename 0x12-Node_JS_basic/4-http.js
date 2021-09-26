@@ -10,3 +10,5 @@ const app = http.createServer((req, res) => {
 app.listen(1245, () => {
   console.log('Hello Holberton School!');
 });
+
+export default app;
