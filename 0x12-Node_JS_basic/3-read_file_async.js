@@ -15,6 +15,7 @@ async function countStudents(path) {
 
     const results = [];
 
+    console.log(`Number of students: ${students.length - 1}`);
     results.push(`Number of students: ${students.length - 1}`);
     for (const field of fields) {
       const fieldStudents = students.filter((student) => student[3] === field);
