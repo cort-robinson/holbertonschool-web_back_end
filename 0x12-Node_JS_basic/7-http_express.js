@@ -9,12 +9,14 @@ app.get('/', (req, res) => {
 });
 
 app.get('/students', (req, res) => {
+  res.write('This is the list of our students\n');
   countStudents(filePath)
     .then((data) => {
-      res.send(`This is the list of our students\n${data.join('\n')}`);
+      res.write(data.join('\n'));
+      res.end();
     })
     .catch(() => {
-      res.send('Cannot load the database');
+      res.end('Cannot load the database');
     });
 });
 
