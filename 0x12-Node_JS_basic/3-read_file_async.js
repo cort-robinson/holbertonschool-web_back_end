@@ -12,13 +12,17 @@ async function countStudents(path) {
   const fields = [...new Set(students.map((student) => student[3]))];
   fields.shift();
 
-  console.log(`Number of students: ${students.length - 1}`);
+  const results = [];
+
+  results.push(`Number of students: ${students.length - 1}`);
   for (const field of fields) {
     const fieldStudents = students.filter((student) => student[3] === field);
     const fieldStudentsNames = fieldStudents.map((student) => student[0]);
-    console.log(`Number of students in ${field}: ${fieldStudents.length}. List: ${fieldStudentsNames.join(', ')}`);
+    results.push(`Number of students in ${field}: ${fieldStudents.length}. List: ${fieldStudentsNames.join(', ')}`);
   }
-  return { students, fields };
+
+  console.log(results.join('\n'));
+  return results;
 }
 
 module.exports = countStudents;
