@@ -1,8 +1,7 @@
 import AppController from '../controllers/AppController';
 import StudentsController from '../controllers/StudentsController';
+import app from '../server';
 
-export default (app) => {
-  app.get('/', AppController.index);
-  app.get('/students', StudentsController.index);
-  app.get('/students/:major', StudentsController.index);
-};
+app.get('/', AppController.getHomepage);
+app.get('/students', StudentsController.getAllStudents);
+app.get('/students/:major', StudentsController.getAllStudentsByMajor);
