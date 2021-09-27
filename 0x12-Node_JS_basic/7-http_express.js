@@ -12,6 +12,9 @@ app.get('/students', (req, res) => {
   countStudents(filePath)
     .then((data) => {
       res.send(data.join('\n'));
+    })
+    .catch(() => {
+      res.send('Cannot load the database');
     });
 });
 
