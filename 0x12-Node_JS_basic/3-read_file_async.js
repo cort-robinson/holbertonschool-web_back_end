@@ -18,6 +18,7 @@ async function countStudents(path) {
     const fieldStudentsNames = fieldStudents.map((student) => student[0]);
     console.log(`Number of students in ${field}: ${fieldStudents.length}. List: ${fieldStudentsNames.join(', ')}`);
   }
+  return { students, fields };
 }
 
 module.exports = countStudents;
