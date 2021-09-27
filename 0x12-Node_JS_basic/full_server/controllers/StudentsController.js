@@ -24,8 +24,11 @@ export default class StudentsController {
       readDatabase('database.csv')
         .then((data) => {
           res.write(`List: ${data[major].join(', ')}`);
+          res.end();
+        }).catch((err) => {
+          res.status(500).write(err);
+          res.end();
         });
-      res.end();
     }
   }
 }
