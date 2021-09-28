@@ -2,7 +2,7 @@ import readDatabase from '../utils';
 
 export default class StudentsController {
   static getAllStudents(req, res) {
-    res.write('This is the list of our students');
+    res.write('This is the list of our students\n');
     readDatabase('database.csv')
       .then((data) => {
         for (const [field, names] of Object.entries(data)) {
