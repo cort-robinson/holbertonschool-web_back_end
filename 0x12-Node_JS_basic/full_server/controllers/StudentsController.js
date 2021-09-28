@@ -20,7 +20,7 @@ export default class StudentsController {
 
   static getAllStudentsByMajor(req, res) {
     if (req.params.major !== 'CS' && req.params.major !== 'SWE') {
-      res.status(500).send('Major parameter must be CS or SWE\n');
+      res.status(500).send('Major parameter must be CS or SWE');
     } else {
       const { major } = req.params;
       readDatabase('database.csv')
