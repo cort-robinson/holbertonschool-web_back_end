@@ -5,9 +5,11 @@ export default class StudentsController {
     res.write('This is the list of our students\n');
     readDatabase('database.csv')
       .then((data) => {
+        const lines = [];
         for (const [field, names] of Object.entries(data)) {
-          res.write(`Number of students in ${field}. List: ${names.join(', ')}`);
+          lines.push(`Number of students in ${field}. List: ${names.join(', ')}`);
         }
+        res.write(lines.join('\n'));
         res.end();
       })
       .catch((err) => {
@@ -18,7 +20,7 @@ export default class StudentsController {
 
   static getAllStudentsByMajor(req, res) {
     if (req.params.major !== 'CS' && req.params.major !== 'SWE') {
-      res.status(500).send('Major parameter must be CS or SWE');
+      res.status(500).send('Major parameter must be CS or SWE\n');
     } else {
       const { major } = req.params;
       readDatabase('database.csv')
