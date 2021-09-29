@@ -17,4 +17,40 @@ describe('calculateNumber', function () {
   it('Returns 0 when adding -0.4 and -0.4', function () {
     assert.equal(calculateNumber(-0.4, -0.4), 0);
   });
+    it('Returns 0 when adding -0.4 and -0.2', function () {
+    assert.equal(calculateNumber(-0.4, -0.2), 0);
+  });
+  it('Returns 0 when adding -0.2 and -0.4', function () {
+    assert.equal(calculateNumber(-0.2, -0.4), 0);
+  });
+  it('Returns 0 when adding 0 and 0', function () {
+    assert.equal(calculateNumber(0, 0), 0);
+  });
+  it('Returns NaN when adding NaN and NaN', function () {
+    assert.equal(isNaN(calculateNumber(NaN, NaN)), true);
+  });
+  it('Returns NaN when adding 0 and NaN', function () {
+    assert.equal(isNaN(calculateNumber(0, NaN)), true);
+  });
+  it('Returns NaN when adding NaN and 0', function () {
+    assert.equal(isNaN(calculateNumber(NaN, 0)), true);
+  });
+  it('Returns NaN when adding 1 and NaN', function () {
+    assert.equal(isNaN(calculateNumber(1, NaN)), true);
+  });
+  it('Returns NaN when adding NaN and 1', function () {
+    assert.equal(isNaN(calculateNumber(NaN, 1)), true);
+  });
+  it('Returns NaN when adding Infinity and Infinity', function () {
+    assert.equal(calculateNumber(Infinity, Infinity), Infinity);
+  });
+  it('Returns NaN when adding Infinity and 0', function () {
+    assert.equal(calculateNumber(Infinity, 0), Infinity);
+  });
+  it('Returns NaN when adding 0 and Infinity', function () {
+    assert.equal(calculateNumber(0, Infinity), Infinity);
+  });
+  it('Returns NaN when adding Infinity and 1', function () {
+    assert.equal(calculateNumber(Infinity, 1), Infinity);
+  });
 });
