@@ -14,4 +14,7 @@ describe('calculateNumber', function () {
   it('Returns 6 when adding 1.5 and 3.7', function () {
     assert.equal(calculateNumber(1.5, 3.7), 6);
   });
+  it('Returns 0 when adding -0.4 and -0.4', function () {
+    assert.equal(calculateNumber(-0.4, -0.4), 0);
+  });
 });
